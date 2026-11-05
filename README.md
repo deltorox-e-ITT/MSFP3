@@ -1,6 +1,6 @@
 [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=deltorox-e-ITT/ModeladoDeSistemasFisiologicosP4)
 
-# Práctica 4: Modelado y control del sistema musculoesquelético
+# Práctica 3: Modelado y control del sistema musculoesquelético
 
 ## Información del estudiante
 Eduardo Del Toro Nuñez; LC23212399.tijuana.tecnm.mx
