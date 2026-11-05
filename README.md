@@ -47,7 +47,6 @@ Se analizan dos condiciones fisiológicas caracterizadas por la variación del p
 
 Se diseña un sistema de control de retroalimentación con un controlador PID ($k_P$, $k_I$, $k_D$) para reducir la discrepancia de la respuesta transitoria y estacionaria $e(t) = x_{\text{control}}(t) - x_{\text{caso}}(t)$, logrando que la dinámica del músculo atrofiado siga de forma precisa la respuesta de referencia del individuo sano ante un estímulo de impulso.
 
-**Palabras clave:** Modelo musculoesquelético; Analogía fuerza-voltaje; Atrofia muscular; Propiedades viscoelásticas; Controlador PID; Simulaciones *in silico*.
 
 ## Lista de archivos incluidos en el repositorio
 1. Cuaderno computacional de MATLAB [.mlx].
