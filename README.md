@@ -143,7 +143,7 @@ La **atrofia muscular** es la disminución de la masa y de la capacidad de gener
 
 La siguiente figura, elaborada en BioRender, ubica sobre el músculo y el tendón los elementos del modelo mecánico y del circuito equivalente: la fuerza transmitida $F(t)$, la fuerza del elemento contráctil $F_0(t)$, la resistencia $R$ (asociada al elemento contráctil ampliado), la estructura elástica pasiva $C_p$, el elemento en serie $C_s$ (tendón) y los desplazamientos $x(t)$, $x_1(t)$ y $x(t)-x_1(t)$.
 
-![Diagrama biológico del sistema musculoesquelético elaborado en BioRender](MusculoEsqueleticoBiorender.jpg)
+![Diagrama biológico del sistema musculoesquelético elaborado en BioRender](BiorenderP3.jpg)
 
 *Figura 1. Diagrama biológico del sistema musculoesquelético (elaborado en BioRender) y su relación con los elementos del modelo mecánico y del circuito eléctrico equivalente.*
 
