@@ -1,4 +1,4 @@
-[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=KevinDarioITT/MSFP3)
+[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=deltorox-e-ITT/MSFP3)
 
 # Práctica 3 — Modelado y control del sistema musculoesquelético 
 
@@ -8,8 +8,9 @@
 **Institución:** Tecnológico Nacional de México / Instituto Tecnológico de Tijuana  
 **Asignatura:** Modelado de Sistemas Fisiológicos  
 **Programa:** Ingeniería Biomédica  
-**Estudiante:** Eduardo Del Toro Nuñez · C23212399 ·LC23212399@tectijuana.edu.mx
+**Estudiante:** Eduardo Del Toro Nuñez · C23212399 · LC23212399@tectijuana.edu.mx
 
+**Repositorio de la práctica:** https://github.com/deltorox-e-ITT/MSFP3  
 **Repositorio de la asignatura:** https://github.com/DrPaulValle/MSF-IBF1020  
 **Sede:** Blvd. Alberto Limón Padilla s/n, Tijuana, C. P. 22454, B. C., México.
 
@@ -143,7 +144,7 @@ La **atrofia muscular** es la disminución de la masa y de la capacidad de gener
 
 La siguiente figura, elaborada en BioRender, ubica sobre el músculo y el tendón los elementos del modelo mecánico y del circuito equivalente: la fuerza transmitida $F(t)$, la fuerza del elemento contráctil $F_0(t)$, la resistencia $R$ (asociada al elemento contráctil ampliado), la estructura elástica pasiva $C_p$, el elemento en serie $C_s$ (tendón) y los desplazamientos $x(t)$, $x_1(t)$ y $x(t)-x_1(t)$.
 
-![Diagrama biológico del sistema musculoesquelético elaborado en BioRender](BiorenderP3.jpg)
+![Diagrama biológico del sistema musculoesquelético elaborado en BioRender](BiorenderP3.jpeg)
 
 *Figura 1. Diagrama biológico del sistema musculoesquelético (elaborado en BioRender) y su relación con los elementos del modelo mecánico y del circuito eléctrico equivalente.*
 
@@ -209,6 +210,8 @@ Una consecuencia de la analogía es que **las topologías no se conservan**: los
 
    I(t) = I1(t) + I2(t) = corriente total (velocidad ẋ)
 ```
+
+El desarrollo manuscrito del circuito y de la superposición se encuentra en [`AnalisisMatematico.pdf`](AnalisisMatematico.pdf).
 
 ### Variables y parámetros
 
@@ -346,7 +349,7 @@ Con $\alpha=0.25$, $C_s=10\ \mu\mathrm{F}$, $C_p=100\ \mu\mathrm{F}$:
 <a id="matlab"></a>
 ## Implementación en MATLAB, Simulink y Simscape
 
-Para las dos condiciones (control y caso) se construyen tres representaciones equivalentes dentro del modelo de Simulink `system`:
+Para las dos condiciones (control y caso) se construyen tres representaciones equivalentes dentro del modelo de Simulink [`system.slx`](system.slx):
 
 | Implementación | Descripción | Aspecto por verificar |
 |---|---|---|
@@ -354,12 +357,12 @@ Para las dos condiciones (control y caso) se construyen tres representaciones eq
 | Función de transferencia (**FT**), Simulink | Bloque *Transfer Fcn* con $G(s)$ de cada condición | Respuesta de primer orden bipropia |
 | Circuito equivalente (**CE**), Simscape Electrical | Componentes $R$, $C_s$, $C_p$ y las fuentes $F$, $F_0$ conectados según el circuito | Concordancia con las representaciones matemáticas |
 
-Los subsistemas **Control** y **Caso** del modelo entregan las salidas `F(t): Control CE`, `F(t): Control FT`, `F(t): Caso CE`, `F(t): Caso FT` y `PID(t): Caso`, que se comparan en osciloscopios (*Scope: Control* y *Scope: Caso*).
+Los subsistemas **Control** y **Caso** del modelo entregan las salidas `F(t): Control CE`, `F(t): Control FT`, `F(t): Caso CE`, `F(t): Caso FT` y `PID(t): Caso`, que se comparan en osciloscopios (*Scope: Control* y *Scope: Caso*). Las capturas de ambos osciloscopios están en [`Scope_Control.pdf`](Scope_Control.pdf) y [`Scope_Caso.pdf`](Scope_Caso.pdf).
 
 
 ### Ejecución desde el cuaderno MATLAB
 
-El cuaderno computacional ejecuta el modelo y envía al *Workspace* las señales mediante bloques *To Workspace*:
+El cuaderno computacional [`DelToroC23212399.mlx`](DelToroC23212399.mlx) ejecuta el modelo y envía al *Workspace* las señales mediante bloques *To Workspace*:
 
 | Variable | Contenido |
 |---|---|
@@ -374,7 +377,9 @@ La función `plotsignals`:
 1. representa gráficamente $F(t)$, el control, el caso y el sistema controlado;
 2. identifica las variables y sus unidades ($F(t)$ en $\mathrm{V}$, $t$ en $\mathrm{s}$);
 3. compara control, caso y sistema controlado con la leyenda $F(t)$, $F_s(t):Control$, $F_s(t):Caso$ y $PID(t):Tratamiento$; y
-4. guarda la figura en formato PDF (`Respuestasmatlab.pdf`).
+4. guarda la figura en formato PDF ([`Respuestasmatlab.pdf`](Respuestasmatlab.pdf)).
+
+La exportación del cuaderno se incluye en [`EDOsysmatlab.pdf`](EDOsysmatlab.pdf).
 
 [Volver al contenido](#contenido)
 
@@ -417,6 +422,10 @@ El controlador se sintoniza con la herramienta **Tune** del bloque *PID Controll
 
 Con $k_D=0$ el controlador es un **PI**: $K(s)=k_P+k_I/s=\dfrac{k_Ps+k_I}{s}$, con un cero en $s=-k_I/k_P\approx-15\,891\ \mathrm{s^{-1}}$.
 
+![Parámetros del controlador PID obtenidos con Tune](ParametrosPID.jpeg)
+
+*Figura 2. Parámetros del bloque PID Controller obtenidos con la herramienta Tune de Simulink.*
+
 ### 3. Función de transferencia en lazo cerrado
 
 Con la planta del caso y las ganancias anteriores:
@@ -436,14 +445,14 @@ Como el instructivo indica, no es necesario reproducir valores de referencia exa
 <a id="python"></a>
 ## Reproducción en Python
 
-Como verificación independiente, se implementan en Python (Visual Studio Code) las funciones de transferencia del control y del caso con la biblioteca `control`. El código [`practica_tres.py`](practica_tres.py):
+Como verificación independiente, se implementan en Python (Visual Studio Code) las funciones de transferencia del control y del caso con la biblioteca `control`. El código [`DelToro23212399.py`](DelToro23212399.py):
 
 1. define el pulso de $1\ \mathrm{V}$ entre $t=1$ s y $t=2$ s con las mismas condiciones de simulación;
 2. obtiene las respuestas del control y del caso en lazo abierto;
 3. incorpora las ganancias $k_P$ y $k_I$ obtenidas con *Tune* ($k_D=0$);
 4. construye el sistema del caso en lazo cerrado con la respuesta del control como referencia;
 5. imprime las funciones de transferencia, los polos, los valores derivados y una tabla de verificación; y
-6. genera la figura y la guarda como `Respuestas_python.pdf`.
+6. genera la figura y la guarda como [`Respuestas_python.pdf`](Respuestas_python.pdf).
 
 Resultados que imprime el código (comparados con el cálculo analítico y con la lectura aproximada de la gráfica de MATLAB):
 
@@ -467,7 +476,7 @@ Dependencias: `numpy`, `control` y `matplotlib` (`pip install numpy control matp
 <a id="biologico"></a>
 ## Diagrama biológico
 
-Se elabora con BioRender un diagrama del sistema musculoesquelético que relaciona los elementos del modelo con las estructuras fisiológicas. El diagrama se presenta en la sección [Sistema fisiológico](#fisiologico) (Figura 1). Identifica como mínimo: elemento contráctil muscular, estructuras elásticas musculares, tendón, desplazamiento, fuerza generada y elementos asociados con el comportamiento viscoso y elástico.
+Se elabora con BioRender un diagrama del sistema musculoesquelético que relaciona los elementos del modelo con las estructuras fisiológicas. El diagrama se presenta en la sección [Sistema fisiológico](#fisiologico) (Figura 1, [`BiorenderP3.jpeg`](BiorenderP3.jpeg)). Identifica como mínimo: elemento contráctil muscular, estructuras elásticas musculares, tendón, desplazamiento, fuerza generada y elementos asociados con el comportamiento viscoso y elástico.
 
 | Elemento del diagrama | Representación en el modelo mecánico | Equivalente eléctrico |
 |---|---|---|
@@ -529,6 +538,8 @@ Las diferencias que aparezcan pueden asociarse con el método numérico (*solver
 | Resultado | MATLAB/Simulink | Python |
 |---|---|---|
 | Control, caso y caso con PID | [`Respuestasmatlab.pdf`](Respuestasmatlab.pdf) | [`Respuestas_python.pdf`](Respuestas_python.pdf) |
+| Osciloscopio del control (CE y FT) | [`Scope_Control.pdf`](Scope_Control.pdf) | — |
+| Osciloscopio del caso (CE, FT y PID) | [`Scope_Caso.pdf`](Scope_Caso.pdf) | — |
 
 [Volver al contenido](#contenido)
 
@@ -638,23 +649,23 @@ La práctica sigue la secuencia de 16 actividades del instructivo (marca las que
 <a id="estructura"></a>
 ## Estructura del repositorio
 
-Organización **sugerida**, a partir de los elementos que solicita el instructivo (ajusta los nombres a los de tus archivos reales):
-
 ```text
 .
-├── README.md                         # Reporte de la práctica
-├── CITATION.cff                      # Datos de citación (alumno y repositorio)
-├── Rodriguez22210428.mlx              # Cuaderno MATLAB
-├── Rodriguez22210428.pdf              # Exportación del cuaderno
-├── system.slx                        # Modelo Simulink (ecuaciones, función de transferencia, control, Simscape)
-├── Rodriguez22210428.py               # Implementación en Python
-├── calculo_matematico.pdf            # Desarrollo manuscrito: circuito y superposición
-├── MusculoEsqueleticoBiorender.jpg   # Diagrama biológico (BioRender)
-├── Respuestasmatlab.pdf              # Figura generada con MATLAB
-├── Respuestas_python.pdf             # Figura generada con Python
+├── README.md                 # Reporte de la práctica
+├── CITATION.cff              # Datos de citación (alumno y repositorio)
+├── LICENSE                   # Licencia del repositorio
+├── DelToroC23212399.mlx      # Cuaderno MATLAB
+├── EDOsysmatlab.pdf          # Exportación del cuaderno MATLAB
+├── system.slx                # Modelo Simulink (ecuaciones, función de transferencia, control, Simscape)
+├── DelToro23212399.py        # Implementación en Python
+├── AnalisisMatematico.pdf    # Desarrollo manuscrito: circuito y superposición
+├── BiorenderP3.jpeg          # Diagrama biológico (BioRender)
+├── ParametrosPID.jpeg        # Evidencia de la sintonización PID (Tune)
+├── Scope_Control.pdf         # Osciloscopio del control en Simulink
+├── Scope_Caso.pdf            # Osciloscopio del caso en Simulink
+├── Respuestasmatlab.pdf      # Figura generada con MATLAB
+└── Respuestas_python.pdf     # Figura generada con Python
 ```
-
-**Criterio de nombres:** los nombres de archivos de esta estructura son **propuestas organizativas**. Si usas otros nombres o subcarpetas, actualiza las rutas en este README.
 
 [Volver al contenido](#contenido)
 
@@ -680,11 +691,11 @@ Organización **sugerida**, a partir de los elementos que solicita el instructiv
 
 ### Secuencia de reproducción
 
-1. Descargar el repositorio y abrir el cuaderno de MATLAB (o usar el botón *Open in MATLAB Online*).
+1. Descargar el repositorio y abrir el cuaderno `DelToroC23212399.mlx` (o usar el botón *Open in MATLAB Online*).
 2. Verificar los parámetros de control y caso (tabla de parámetros) y la configuración del generador de pulsos (1 V, entre $t=1$ s y $t=2$ s).
-3. Ejecutar el modelo `system` de Simulink (ecuaciones, función de transferencia y Simscape) y verificar su consistencia.
+3. Ejecutar el modelo `system.slx` de Simulink (ecuaciones, función de transferencia y Simscape) y verificar su consistencia.
 4. Ejecutar el cuaderno para obtener las respuestas del control, del caso y del caso con PID, y exportar la figura en PDF.
-5. Ejecutar `practica_tres.py` con las ganancias PID registradas.
+5. Ejecutar `DelToro23212399.py` con las ganancias PID registradas.
 6. Comparar los resultados entre plataformas.
 
 ### Entregables solicitados en el repositorio
@@ -692,16 +703,16 @@ Organización **sugerida**, a partir de los elementos que solicita el instructiv
 | Entregable | Evidencia |
 |---|---|
 | Análisis del modelo mecánico | Sección [Modelo físico y analogía eléctrica](#analogia) (este README) |
-| Analogía electromecánica y circuito equivalente | Tabla de equivalencias, topología y `calculo_matematico.pdf` |
+| Analogía electromecánica y circuito equivalente | Tabla de equivalencias, topología y [`AnalisisMatematico.pdf`](AnalisisMatematico.pdf) |
 | Análisis matemático | Ecuaciones, superposición y función de transferencia (este README) |
-| MATLAB y Simulink | Cuaderno `.mlx` y modelo `system.slx` |
-| Simscape Electrical | Circuito equivalente dentro del modelo de Simulink |
-| Python | `practica_tres.py` |
-| Figuras | `Respuestasmatlab.pdf` y `Respuestas_python.pdf` |
+| MATLAB y Simulink | [`DelToroC23212399.mlx`](DelToroC23212399.mlx), [`EDOsysmatlab.pdf`](EDOsysmatlab.pdf) y [`system.slx`](system.slx) |
+| Simscape Electrical | Circuito equivalente dentro de `system.slx` |
+| Python | [`DelToro23212399.py`](DelToro23212399.py) |
+| Figuras | [`Respuestasmatlab.pdf`](Respuestasmatlab.pdf) y [`Respuestas_python.pdf`](Respuestas_python.pdf) |
 | Resultados | Control, caso y sistema controlado |
-| Diagrama biológico | Imagen del diagrama |
-| Capturas | Capturas de las simulaciones |
-| Documentación | `README.md` (reporte) y `CITATION.cff` |
+| Diagrama biológico | [`BiorenderP3.jpeg`](BiorenderP3.jpeg) |
+| Capturas | [`Scope_Control.pdf`](Scope_Control.pdf), [`Scope_Caso.pdf`](Scope_Caso.pdf) y [`ParametrosPID.jpeg`](ParametrosPID.jpeg) |
+| Documentación | `README.md` (reporte), [`CITATION.cff`](CITATION.cff) y [`LICENSE`](LICENSE) |
 
 ### Criterios de presentación académica
 
