@@ -58,6 +58,7 @@ Se diseña un sistema de control de retroalimentación con un controlador PID ($
 6. Capturas de pantalla de los esquemas y resultados de las simulaciones.
 7. Diagrama biológico del sistema musculoesquelético realizado en BioRender.
 8. Archivo de metadatos de citación [CITATION.cff].
+9. Analisis Matematico
 
 ## Referencias
 \[1] P. A. Valle, Syllabus para Modelado de Sistemas Fisiológicos, Tecnológico Nacional de México / Instituto Tecnológico de Tijuana, Tijuana, B.C., México, 2026. Permalink: https://biomath.xyz/course/
